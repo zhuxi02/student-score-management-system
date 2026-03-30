@@ -8,7 +8,7 @@ typedef struct student {
 	char name[20];//姓名
 	gender gender;//性别
 	char major[30];//专业
-	int class;//班级
+	int cls;//班级
 	char reserch[100];//研究方向
 	char tutor[20];//导师
 	int course;//课程综合成绩
@@ -21,8 +21,9 @@ student* head = NULL;
 void mainmenu();
 void menuA();
 void menuB();
-void menuC();//查询菜单
-void menuD();//统计菜单
+void menuC();//排序菜单
+void menuD();//查询菜单
+void menuE();//统计菜单
 void read();//读取文件信息至链表函数
 void load();//保存链表信息至文件函数
 void add();//添加基本资料函数
@@ -41,24 +42,199 @@ void showclass();//显示某班全部学生信息函数
 void showone();//查询显示学生个人信息
 void countaverage();//统计显示每个班论文成绩的平均成绩函数
 void countunqualified();//统计显示所有论文成绩不合格学生函数
-void menuA(){
-    printf("==================================================
-                    基本资料数据的维护管理
-            ==================================================
-        (1)添加:（批量、单个）添加学生基本资料数据。
-        (2)修改：根据学号来修改任意学生的除学号外的其他基本资料数据。
-        (3)删除：根据学号删除一个学生。
-        (4)查询：根据学号查询一个学生的基本资料数据。");
+void mainmenu() {
+	while (1) {
+		system("cls");
+		printf(
+			"=============================="
+			"研究生学生成绩管理系统"
+			"==============================\n"
+			"1.基本资料数据的维护管理\n"
+			"2.成绩数据的维护管理\n"
+			"3.排序功能\n"
+			"4.查询功能\n"
+			"5.统计功能\n"
+			"请输入要进行的操作(输入0关闭系统):\n"
+		);
+		int n;
+		scanf("%d", &n);
+		switch (n) {
+		case 1:menuA(); break;
+		case 2:menuB(); break;
+		case 3:menuC(); break;
+		case 4:menuD(); break;
+		case 5:menuE(); break;
+		case 0:
+			printf("感谢使用学生成绩管理系统\n");
+			return;
+		default:printf("输入错误!"); break;
+		}
+	}
 }
-
+void menuA() {
+	while (1) {
+		system("cls");
+		printf(
+			"=============================="
+			"基本资料数据的维护管理"
+			"==============================\n"
+			"1.添加:（批量、单个）添加学生基本资料数据。\n"
+			"2.修改：根据学号来修改任意学生的除学号外的其他基本资料数据。\n"
+			"3.删除：根据学号删除一个学生。\n"
+			"4.查询：根据学号查询一个学生的基本资料数据。\n"
+			"请输入要进行的操作(输入0返回主菜单):\n"
+		);
+		int n;
+		scanf("%d", &n);
+		switch (n) {
+		case 1:add(); break;
+		case 2:change1(); break;
+		case 3:delet1(); break;
+		case 4:search1(); break;
+		case 0:return;
+		default:
+			printf("输入错误!"); break;
+		}
+	}
+}
 void menuB() {
-    printf("==================================================
-                      成绩数据的维护管理
-            ==================================================
-        (1)输入:（批量、单个）输入学生成绩数据。成绩数据根据学生类型的不同而有区别，输入的相关数据也应不同。注意：总成绩、班级排名是计算项，不能输入。
-        (2)修改：根据学号来修改任意学生的相关成绩数据（注意：不同类别学生相关数据不同）。
-        (3)删除：根据学号删除一个学生（不能删除，只需将相关数据项设置成 - 1）。
-        (4)查询：根据学号查询一个学生的成绩数据。
-        (5)计算：批量计算所有学生的总成绩、班级排名。注意，只有各项数据都为有效数据时（ - 1为无效数据），才能计算。"
-                );
+	while (1) {
+		system("cls");
+		printf(
+			"=============================="
+			"成绩数据的维护管理"
+			"==============================\n"
+			"1.输入:（批量、单个）输入学生成绩数据。\n"
+			"2.修改：根据学号来修改任意学生的相关成绩数据。\n"
+			"3.删除：根据学号删除一个学生。\n"
+			"4.查询：根据学号查询一个学生的成绩数据。\n"
+			"5.计算：批量计算所有学生的总成绩、班级排名。\n"
+			"请输入要进行的操作(输入0返回主菜单):\n"
+		);
+		int n;
+		scanf("%d", &n);
+		switch (n) {
+		case 1:input(); break;
+		case 2:change2(); break;
+		case 3:delet2(); break;
+		case 4:search2(); break;
+		case 5:count(); break;
+		case 0:return;
+		default:
+			printf("输入错误!");
+		}
+	}
+}
+void menuC() {
+	while (1) {
+		system("cls");
+		printf("功能待开发\n");
+	}
+}
+void menuD() {
+	while (1) {
+		system("cls");
+		printf("功能待开发\n");
+	}
+}
+void menuE() {
+	while (1) {
+		system("cls");
+		printf("功能待开发\n");
+	}
+}
+void read() {
+	printf("功能待开发\n");
+	system("pause");
+}
+void load() {
+	printf("功能待开发\n");
+	system("pause");
+}
+void add() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void change1() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void delet1() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void search1() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void input() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void change2() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void delet2() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void search2() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void count() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void sortall() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void sortclass() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void showall() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void showclass() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void showone() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void countaverage() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+void countunqualified() {
+	system("cls");
+	printf("功能待开发\n");
+	system("pause");
+}
+int main() {
+	read();
+	mainmenu();
+	load();
+	printf("信息已保存");
+	return 0;
 }
