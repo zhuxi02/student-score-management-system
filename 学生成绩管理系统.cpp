@@ -128,19 +128,69 @@ void menuB() {
 void menuC() {
 	while (1) {
 		system("cls");
-		printf("功能待开发\n");
+		printf(
+			"=============================="
+			"           排序功能           "
+			"==============================\n"
+			"1.所有学生信息按总成绩从高到低排序并显示\n"
+			"2.某个班学生信息（即按班号）按总成绩从高到低排序并显示\n"
+			"请输入要进行的操作(输入0返回主菜单):\n"
+		);
+		int n;
+		scanf("%d", &n);
+		switch (n) {
+		case 1:sortall(); break;
+		case 2:sortclass(); break;
+		case 0:return;
+		default:
+			printf("输入错误!");
+		}
 	}
 }
 void menuD() {
 	while (1) {
 		system("cls");
-		printf("功能待开发\n");
+		printf(
+			"=============================="
+			"           查询功能           "
+			"==============================\n"
+			"1.分页显示全部学生的信息。分页功能：每页显示10条学生的信息，有上一页、下一页、首页和最后一页的功能\n"
+			"2.能够按班级显示本班全部学生个人信息。注意：无需分页显示\n"
+			"3.能够根据学号或者姓名查询学生信息\n"
+			"请输入要进行的操作(输入0返回主菜单):\n"
+		);
+			int n;
+			scanf("%d", &n);
+			switch (n) {
+			case 1:showall(); break;
+			case 2:showclass(); break;
+			case 3:showone(); break;
+			case 0:return;
+			default:
+				printf("输入错误!");
+		}
 	}
 }
 void menuE() {
 	while (1) {
 		system("cls");
-		printf("功能待开发\n");
+		printf(
+			"=============================="
+			"           统计功能           "
+			"==============================\n"
+			"1.统计并显示每个班论文成绩的平均成绩\n"
+			"2.统计并显示所有论文成绩不合格的学生，并最后显示统计的总人数\n"
+			"请输入要进行的操作(输入0返回主菜单):\n"
+		);
+		int n;
+		scanf("%d", &n);
+		switch (n) {
+		case 1:countaverage(); break;
+		case 2:countunqualified(); break;
+		case 0:return;
+		default:
+			printf("输入错误!");
+		}
 	}
 }
 void read() {
