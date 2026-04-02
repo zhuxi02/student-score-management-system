@@ -155,8 +155,8 @@ void menuD() {
 			"           查询功能           "
 			"==============================\n"
 			"1.分页显示全部学生的信息。分页功能：每页显示10条学生的信息，有上一页、下一页、首页和最后一页的功能\n"
-			"2.能够按班级显示本班全部学生个人信息。注意：无需分页显示\n"
-			"3.能够根据学号或者姓名查询学生信息\n"
+			"2.按班级显示本班全部学生个人信息。注意：无需分页显示\n"
+			"3.根据学号或者姓名查询学生信息\n"
 			"请输入要进行的操作(输入0返回主菜单):\n"
 		);
 			int n;
@@ -194,7 +194,38 @@ void menuE() {
 	}
 }
 void read() {
-	printf("功能待开发\n");
+	FILE* fp;
+	if ((fp = fopen("student.dat", "rb")) == NULL) {
+		head = NULL;
+		printf("无历史数据，已自动创建新文件\n");
+		system("pause");
+		return;
+	}
+	student* p,*q;
+	p = head;
+	while (p != NULL) {
+		q = p;
+		p = p->next;
+		free(q);
+	}
+	head = NULL;
+	student* tail = NULL;
+	student temp;
+	while (fread(&temp, sizeof(student), 1, fp) == 1) {
+		student* node = (student*)malloc(sizeof(student));
+		*node = temp;
+		node->next = NULL;
+		if (head == NULL) {
+			head = node;
+			tail = node;
+		}
+		else {
+			tail->next = node;
+			tail = node;
+		}
+	}
+	fclose(fp);
+	printf("已读取上次保存的数据\n");
 	system("pause");
 }
 void load() {
