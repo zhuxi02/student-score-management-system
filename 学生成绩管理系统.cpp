@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef enum{male,female}gender;
+typedef enum { male, female }gender;
 typedef struct student {
 	int id;//学号
 	char name[20];//姓名
@@ -159,15 +159,15 @@ void menuD() {
 			"3.根据学号或者姓名查询学生信息\n"
 			"请输入要进行的操作(输入0返回主菜单):\n"
 		);
-			int n;
-			scanf("%d", &n);
-			switch (n) {
-			case 1:showall(); break;
-			case 2:showclass(); break;
-			case 3:showone(); break;
-			case 0:return;
-			default:
-				printf("输入错误!");
+		int n;
+		scanf("%d", &n);
+		switch (n) {
+		case 1:showall(); break;
+		case 2:showclass(); break;
+		case 3:showone(); break;
+		case 0:return;
+		default:
+			printf("输入错误!");
 		}
 	}
 }
@@ -201,7 +201,7 @@ void read() {
 		system("pause");
 		return;
 	}
-	student* p,*q;
+	student* p, * q;
 	p = head;
 	while (p != NULL) {
 		q = p;
