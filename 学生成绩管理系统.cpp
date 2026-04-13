@@ -454,42 +454,83 @@ void delet1() {
 }
 void search1() {
 	system("cls");
-	if (head == NULL) {
-		printf("当前没有任何学生数据！\n");
-		system("pause");
-		return;
-	}
-	int target_id;
-	printf("=============================="
-	       "查询学生基本资料"
-	       "==============================\n");
-	printf("请输入要查询的学生学号：");
-	scanf("%d", &target_id);
-	student* p = head;
-	while (p != NULL) {
-		if (p->id == target_id) {
-			system("cls");
-			printf("======================================"
-				"学生基本信息"
-				"=======================================\n");
-			printf("学号：%d\n", p->id);
-			printf("姓名：%s\n", p->name);
-			printf("性别：%s\n", (p->gender == 0) ? "男" : "女");
-			printf("专业：%s\n", p->major);
-			printf("班级：%d\n", p->cls);
-			printf("研究方向：%s\n", p->reserch);
-			printf("导师：%s\n", p->tutor);
-			system("pause");
-			return;
-		}
-		p = p->next;
-	}
-	printf("\n未找到学号为%d的学生\n", target_id);
+	printf("功能待开发\n");
 	system("pause");
 }
 void input() {
 	system("cls");
-	printf("功能待开发\n");
+	void input() {
+		system("cls");
+		int choice;
+		printf("==============================成绩数据录入==============================\n");
+		printf("1.单个录入学生成绩\n");
+		printf("2.批量录入学生成绩\n");
+		printf("请选择：");
+		scanf("%d", &choice);
+		int num = 1;
+		switch (choice) {
+		case 1:
+			break;
+		case 2:
+			printf("请输入需要录入成绩的学生人数：");
+			scanf("%d", &num);
+			if (num <= 0) {
+				printf("人数输入无效！\n");
+				system("pause");
+				return;
+			}
+			break;
+		default:
+			printf("输入错误！\n");
+			system("pause");
+			return;
+		}
+		for (int i = 0; i < num; i++) {
+			int id;
+			printf("\n===== 第 %d 个学生 =====\n", i + 1);
+			printf("请输入学生学号：");
+			scanf("%d", &id);
+			student* p = head;
+			while (p != NULL && p->id != id) {
+				p = p->next;
+			}
+			if (p == NULL) {
+				printf("未找到学号为 %d 的学生，跳过该学生！\n", id);
+				continue;
+			}
+			printf("找到学生：%s\n", p->name);
+			int c;
+			while (1) {
+				printf("请输入课程综合成绩（0-100，-1表示无成绩）：");
+				scanf("%d", &c);
+				if ((c >= 0 && c <= 100) || c == -1) {
+					p->course = c;
+					break;
+				}
+				else {
+					printf("成绩无效！请重新输入！\n");
+				}
+			}
+			int psc;
+			while (1) {
+				printf("请输入论文成绩（0-100，-1表示无成绩）：");
+				scanf("%d", &psc);
+				if ((psc >= 0 && psc <= 100) || psc == -1) {
+					p->paper = psc;
+					break;
+				}
+				else {
+					printf("成绩无效！请重新输入！\n");
+				}
+			}
+			p->total = -1;
+			p->rank = -1;
+
+			printf("=> 学号 %d 成绩录入成功！\n", id);
+		}
+		printf("\n所有成绩录入完成！\n");
+		system("pause");
+	}
 	system("pause");
 }
 void change2() {
