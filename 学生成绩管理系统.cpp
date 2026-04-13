@@ -367,54 +367,54 @@ void change1() {
 			"5.修改研究方向\n"
 			"6.修改导师\n"
 			"0.保存并退出修改\n");
-			scanf("%d", &choice);
-	}
-	switch (choice) {
-	case 0:
-		printf("修改已保存\n");
-		system("pause");
-		return;
-	case 1:
-		printf("新姓名：");
-		scanf("%s",&p->name);
-		printf("姓名修改成功\n");
-		system("pause");
-		break;
-	case 2:
-		printf("新性别(0=男,1=女)：");
-		scanf("%d", (int*)&p->gender); 
-		printf("性别修改成功\n");
-		system("pause");
-		break;
-	case 3:
-		getchar();
-		printf("新专业：");
-		scanf("%s",&p->major);
-		printf("专业修改成功\n");
-		system("pause");
-		break;
-	case 4:
-		printf("新班级：");
-		scanf("%d", &p->cls);
-		printf("班级修改成功\n");
-		system("pause");
-		break;
-	case 5:
-		printf("新研究方向：");
-		scanf("%s",&p->reserch);
-		printf("研究方向修改成功\n");
-		system("pause");
-		break;
-	case 6:
-		printf("新导师：");
-		scanf("%s",&p->tutor);
-		printf("导师修改成功\n");
-		system("pause");
-		break;
-	default:
-		printf("输入错误\n");
-		system("pause");
-		break;
+		scanf("%d", &choice);
+		switch (choice) {
+		case 0:
+			printf("修改已保存\n");
+			system("pause");
+			return;
+		case 1:
+			printf("新姓名：");
+			scanf("%s", &p->name);
+			printf("姓名修改成功\n");
+			system("pause");
+			break;
+		case 2:
+			printf("新性别(0=男,1=女)：");
+			scanf("%d", (int*)&p->gender);
+			printf("性别修改成功\n");
+			system("pause");
+			break;
+		case 3:
+			getchar();
+			printf("新专业：");
+			scanf("%s", &p->major);
+			printf("专业修改成功\n");
+			system("pause");
+			break;
+		case 4:
+			printf("新班级：");
+			scanf("%d", &p->cls);
+			printf("班级修改成功\n");
+			system("pause");
+			break;
+		case 5:
+			printf("新研究方向：");
+			scanf("%s", &p->reserch);
+			printf("研究方向修改成功\n");
+			system("pause");
+			break;
+		case 6:
+			printf("新导师：");
+			scanf("%s", &p->tutor);
+			printf("导师修改成功\n");
+			system("pause");
+			break;
+		default:
+			printf("输入错误\n");
+			system("pause");
+			break;
+		}
 	}
 	system("pause");
 }
@@ -561,17 +561,106 @@ void input() {
 	}
 void change2() {
 	system("cls");
-	printf("功能待开发\n");
+	if (head == NULL) {
+		printf("暂无学生数据，无法修改\n");
+		system("pause");
+		return;
+	}
+	int target_id;
+	printf("==============================修改学生成绩数据==============================\n");
+	printf("请输入要修改的学生学号：");
+	scanf("%d", &target_id);
+	student* p = head;
+	while (p != NULL && p->id != target_id) {
+		p = p->next;
+	}
+	if (p == NULL) {
+		printf("未找到学号为%d的学生\n", target_id);
+		system("pause");
+		return;
+	}
+	int choice;
+	while (1) {
+		system("cls");
+		printf("===== 当前修改学生：%s（学号：%d）=====\n", p->name, p->id);
+		printf("1.修改课程综合成绩\n");
+		printf("2.修改论文成绩\n");
+		printf("0.保存并退出修改\n");
+		scanf("%d", &choice);
+		if (choice == 0) {
+			break;
+		}
+		switch (choice) {
+		case 1:
+			printf("输入新的课程综合成绩（0-100，-1表示无成绩）：");
+			scanf("%d", &p->course);
+			printf("课程综合成绩修改成功\n");
+			break;
+		case 2:
+			printf("输入新的论文成绩（0-100，-1表示无成绩）：");
+			scanf("%d", &p->paper);
+			printf("论文成绩修改成功\n");
+			break;
+		default:
+			printf("输入错误\n");
+			break;
+		}
+		system("pause");
+	}
+	printf("修改已保存\n");
 	system("pause");
 }
 void delet2() {
 	system("cls");
-	printf("功能待开发\n");
+	if (head == NULL) {
+		printf("暂无学生数据，无法删除\n");
+		system("pause");
+		return;
+	}
+	int target_id;
+	printf("==============================删除学生成绩数据==============================\n");
+	printf("请输入要删除成绩的学生学号：");
+	scanf("%d", &target_id);
+	student* p = head;
+	while (p != NULL && p->id != target_id) {
+		p = p->next;
+	}
+	if (p == NULL) {
+		printf("未找到学号为%d的学生\n", target_id);
+		system("pause");
+		return;
+	}
+	p->course = -1;
+	p->paper = -1;
+	p->total = -1;
+	p->rank = -1;
+	printf("学号%d的学生成绩已清空（置为-1）\n", target_id);
 	system("pause");
 }
 void search2() {
 	system("cls");
-	printf("功能待开发\n");
+	if (head == NULL) {
+		printf("当前没有任何学生数据！\n");
+		system("pause");
+		return;
+	}
+	int target_id;
+	printf("=============================="
+		"查询学生成绩数据"
+		"==============================\n");
+	printf("请输入要查询的学生学号：");
+	scanf("%d", &target_id);
+	student* p = head;
+	while (p != NULL) {
+		if (p->id == target_id) {
+			printf("该学生课程综合成绩为：%d\n", p->course);
+			printf("该学生论文成绩为：%d\n", p->paper);
+			system("pause");
+			return;
+		}
+		p = p->next;
+	}
+	printf("未找到学号为%d的学生\n",target_id);
 	system("pause");
 }
 void count() {
