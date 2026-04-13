@@ -18,6 +18,7 @@ typedef struct student {
 	struct student* next;
 }student;
 student* head = NULL;
+int next_id;
 void mainmenu();
 void menuA();
 void menuB();
@@ -263,21 +264,17 @@ void add() {
 		new_node->next = NULL;
 		new_node->id = next_id++;
 		printf("姓名：");
-		gets(new_node->name);
+		scanf("%s",&new_node->name);
 		printf("性别(0=男,1=女)：");
-		int g;
-		scanf("%d", &g);
-		new_node->gender = g;
-		getchar();
+		scanf("%d", (int*)&new_node->gender);
 		printf("专业：");
-		gets(new_node->major);
+		scanf("%s",&new_node->major);
 		printf("班级：");
 		scanf("%d", &new_node->cls);
-		getchar();
 		printf("研究方向：");
-		gets(new_node->reserch);
+		scanf("%s",&new_node->reserch);
 		printf("导师：");
-		gets(new_node->tutor);
+		scanf("%s",&new_node->tutor);
 		new_node->course = -1;
 		new_node->paper = -1;
 		new_node->total = -1;
@@ -298,28 +295,23 @@ void add() {
 		int num;
 		printf("\n请输入要添加的学生数量：");
 		scanf("%d", &num);
-		getchar();
 		for (int i = 0; i < num; i++) {
 			printf("\n===== 第 %d 个学生 =====\n", i + 1);
 			student* new_node = (student*)malloc(sizeof(student));
 			new_node->next = NULL;
 			new_node->id = next_id++;
 			printf("姓名：");
-			gets(new_node->name);
+			scanf("%s",&new_node->name);
 			printf("性别(0=男,1=女)：");
-			int g;
-			scanf("%d", &g);
-			new_node->gender = g;
-			getchar();
+			scanf("%d", (int*)&new_node->gender);
 			printf("专业：");
-			gets(new_node->major);
+			scanf("%s",&new_node->major);
 			printf("班级：");
 			scanf("%d", &new_node->cls);
-			getchar();
 			printf("研究方向：");
-			gets(new_node->reserch);
+			scanf("%s",&new_node->reserch);
 			printf("导师：");
-			gets(new_node->tutor);
+			scanf("%s",&new_node->tutor);
 			new_node->course = -1;
 			new_node->paper = -1;
 			new_node->total = -1;
@@ -380,52 +372,57 @@ void change1() {
 	switch (choice) {
 	case 0:
 		printf("修改已保存\n");
+		system("pause");
 		return;
 	case 1:
-		getchar();
 		printf("新姓名：");
-		gets(p->name);
+		scanf("%s",&p->name);
 		printf("姓名修改成功\n");
+		system("pause");
 		break;
 	case 2:
 		printf("新性别(0=男,1=女)：");
 		scanf("%d", (int*)&p->gender); 
 		printf("性别修改成功\n");
+		system("pause");
 		break;
 	case 3:
 		getchar();
 		printf("新专业：");
-		gets(p->major);
+		scanf("%s",&p->major);
 		printf("专业修改成功\n");
+		system("pause");
 		break;
 	case 4:
 		printf("新班级：");
 		scanf("%d", &p->cls);
 		printf("班级修改成功\n");
+		system("pause");
 		break;
 	case 5:
-		getchar();
 		printf("新研究方向：");
-		gets(p->reserch);
+		scanf("%s",&p->reserch);
 		printf("研究方向修改成功\n");
+		system("pause");
 		break;
 	case 6:
-		getchar();
 		printf("新导师：");
-		gets(p->tutor);
+		scanf("%s",&p->tutor);
 		printf("导师修改成功\n");
+		system("pause");
 		break;
 	default:
 		printf("输入错误\n");
+		system("pause");
 		break;
 	}
-}
 	system("pause");
 }
 void delet1() {
 	system("cls");
 	if (head == NULL) {
 		printf("暂无学生数据，无需删除\n");
+		system("pause");
 		return;
 	}
 	int target_id;
@@ -433,6 +430,7 @@ void delet1() {
 	       "删除学生基本资料"
 		   "==============================\n"
 		   "请输入要删除的学生学号：");
+	scanf("%d", &target_id);
 	student* p = head, * prev = NULL;
 	while (p != NULL && p->id != target_id) {
 		prev = p;
@@ -440,6 +438,7 @@ void delet1() {
 	}
 	if (p == NULL) {
 		printf("未找到学号为%d的学生\n", target_id);
+		system("pause");
 		return;
 	}
 	scanf("%d", &target_id);
