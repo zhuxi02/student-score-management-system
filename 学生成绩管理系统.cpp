@@ -454,13 +454,41 @@ void delet1() {
 }
 void search1() {
 	system("cls");
-	printf("功能待开发\n");
+	if (head == NULL) {
+		printf("当前没有任何学生数据！\n");
+		system("pause");
+		return;
+	}
+	int target_id;
+	printf("=============================="
+		"查询学生基本资料"
+		"==============================\n");
+	printf("请输入要查询的学生学号：");
+	scanf("%d", &target_id);
+	student* p = head;
+	while (p != NULL) {
+		if (p->id == target_id) {
+			system("cls");
+			printf("======================================"
+				"学生基本信息"
+				"=======================================\n");
+			printf("学号：%d\n", p->id);
+			printf("姓名：%s\n", p->name);
+			printf("性别：%s\n", (p->gender == 0) ? "男" : "女");
+			printf("专业：%s\n", p->major);
+			printf("班级：%d\n", p->cls);
+			printf("研究方向：%s\n", p->reserch);
+			printf("导师：%s\n", p->tutor);
+			system("pause");
+			return;
+		}
+		p = p->next;
+	}
+	printf("\n未找到学号为%d的学生\n", target_id);
 	system("pause");
 }
 void input() {
 	system("cls");
-	void input() {
-		system("cls");
 		int choice;
 		printf("==============================成绩数据录入==============================\n");
 		printf("1.单个录入学生成绩\n");
@@ -531,8 +559,6 @@ void input() {
 		printf("\n所有成绩录入完成！\n");
 		system("pause");
 	}
-	system("pause");
-}
 void change2() {
 	system("cls");
 	printf("功能待开发\n");
