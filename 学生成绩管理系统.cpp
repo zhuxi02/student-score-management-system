@@ -18,7 +18,7 @@ typedef struct student {
 	struct student* next;
 }student;
 student* head = NULL;
-int next_id;
+int next_id=1001;
 void mainmenu();
 void menuA();
 void menuB();
