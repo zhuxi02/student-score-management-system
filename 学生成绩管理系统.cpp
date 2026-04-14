@@ -441,7 +441,6 @@ void delet1() {
 		system("pause");
 		return;
 	}
-	scanf("%d", &target_id);
 	if (prev == NULL) {
 		head = head->next;
 	}
