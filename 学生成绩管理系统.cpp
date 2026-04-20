@@ -68,7 +68,9 @@ void mainmenu() {
 		case 0:
 			printf("感谢使用学生成绩管理系统\n");
 			return;
-		default:printf("输入错误!"); break;
+		default:printf("输入错误!请重新输入！\n"); 
+				system("pause");
+				break;
 		}
 	}
 }
@@ -94,7 +96,9 @@ void menuA() {
 		case 4:search1(); break;
 		case 0:return;
 		default:
-			printf("输入错误!"); break;
+			printf("输入错误!请重新输入!\n");
+			system("pause");
+			break;
 		}
 	}
 }
@@ -122,7 +126,9 @@ void menuB() {
 		case 5:count(); break;
 		case 0:return;
 		default:
-			printf("输入错误!");
+			printf("输入错误!请重新输入\n");
+			system("pause");
+			break;
 		}
 	}
 }
@@ -144,7 +150,9 @@ void menuC() {
 		case 2:sortclass(); break;
 		case 0:return;
 		default:
-			printf("输入错误!");
+			printf("输入错误!请重新输入！\n");
+			system("pause");
+			break;
 		}
 	}
 }
@@ -168,7 +176,9 @@ void menuD() {
 		case 3:showone(); break;
 		case 0:return;
 		default:
-			printf("输入错误!");
+			printf("输入错误!请重新输入！\n");
+			system("pause");
+			break;
 		}
 	}
 }
@@ -190,7 +200,9 @@ void menuE() {
 		case 2:countunqualified(); break;
 		case 0:return;
 		default:
-			printf("输入错误!");
+			printf("输入错误!请重新输入！\n");
+			system("pause");
+			break;
 		}
 	}
 }
@@ -652,6 +664,7 @@ void search2() {
 	student* p = head;
 	while (p != NULL) {
 		if (p->id == target_id) {
+			printf("该学生为:%s\n", p->name);
 			printf("该学生课程综合成绩为：%d\n", p->course);
 			printf("该学生论文成绩为：%d\n", p->paper);
 			system("pause");
@@ -857,14 +870,67 @@ void showall() {
 		}
 		printf("\n【1】上一页 【2】下一页 【3】首页 【4】尾页 【0】返回\n");
 		int op;
-		scanf("%d", &op);
-		if (op == 0) break;
-		else if (op == 1 && page > 0) page--;
-		else if (op == 2 && page < total_page - 1) page++;
-		else if (op == 3) page = 0;
-		else if (op == 4) page = total_page - 1;
+		while (scanf("%d", &op) != 1) {
+			while (getchar() != '\n');
+			printf("输入无效，请输入数字！\n");
+			system("pause");
+			system("cls");
+			printf("===== 全部学生（总分降序） 第 %d/%d 页 =====\n", page + 1, total_page);
+			printf("学号\t姓名\t性别\t班级\t课程\t论文\t总分\n");
+			for (int i = start; i < end; i++) {
+				student* s = arr[i];
+				printf("%d\t%s\t%s\t%d\t%d\t%d\t%d\n",
+					s->id, s->name, s->gender == 0 ? "男" : "女",
+					s->cls, s->course, s->paper, s->total);
+			}
+			printf("\n【1】上一页 【2】下一页 【3】首页 【4】尾页 【0】返回\n");
+		}
+		if (op == 0) {
+			break;
+		}
+		else if (op == 1) {
+			if (page > 0) {
+				page--;
+			}
+			else {
+				printf("\n已经是第一页啦！\n");
+				system("pause");
+			}
+		}
+		else if (op == 2) {
+			if (page < total_page - 1) {
+				page++;
+			}
+			else {
+				printf("\n已经是最后一页啦！\n");
+				system("pause");
+			}
+		}
+		else if (op == 3) {
+			if (page == 0) {
+				printf("\n已经是首页！\n");
+				system("pause");
+			}
+			else {
+				page = 0;
+			}
+		}
+		else if (op == 4) {
+			if (page == total_page - 1) {
+				printf("\n已经是尾页！\n");
+				system("pause");
+			}
+			else {
+				page = total_page - 1;
+			}
+		}
+		else {
+			printf("\n输入错误！请输入0-4之间的数字！\n");
+			system("pause");
+		}
 	}
 }
+
 void showclass() {
 	system("cls");
 	if (!head) {
@@ -879,16 +945,17 @@ void showclass() {
 	int f = 0;
 	system("cls");
 	printf("班级 %d 学生列表：\n", c);
-	printf("学号\t姓名\t性别\t专业\n");
 	while (p) {
 		if (p->cls == c) {
+			f++;
+			if(f==1)
+				printf("学号\t姓名\t性别\t专业\n");
 			printf("%d\t%s\t%s\t%s\n",p->id, p->name, p->gender ? "女" : "男", p->major);
-			f = 1;
 		}
 		p = p->next;
 	}
 	if (!f) {
-		printf("无学生\n");
+		printf("%d班无学生\n",c);
 	}
 	system("pause");
 }
@@ -917,6 +984,11 @@ void showone() {
 			}
 			p = p->next;
 		}
+		if (p == NULL) {
+			printf("未找到该学生\n");
+			system("pause");
+			return;
+		}
 	}
 	else if (op == 2) {
 		char name[20];
@@ -933,8 +1005,13 @@ void showone() {
 			}
 			p = p->next;
 		}
+		if (p == NULL) {
+			printf("未找到该学生\n");
+			system("pause");
+			return;
+		}
 	}
-	printf("未找到\n");
+	printf("请正确输入1或者2\n");
 	system("pause");
 }
 void countaverage() {
