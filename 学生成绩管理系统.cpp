@@ -153,10 +153,10 @@ void menuD() {
 		system("cls");
 		printf(
 			"=============================="
-			"           查询功能           "
+			"查询功能"
 			"==============================\n"
 			"1.分页显示全部学生的信息。分页功能：每页显示10条学生的信息，有上一页、下一页、首页和最后一页的功能\n"
-			"2.按班级显示本班全部学生个人信息。注意：无需分页显示\n"
+			"2.按班级显示本班全部学生个人信息\n"
 			"3.根据学号或者姓名查询学生信息\n"
 			"请输入要进行的操作(输入0返回主菜单):\n"
 		);
@@ -177,7 +177,7 @@ void menuE() {
 		system("cls");
 		printf(
 			"=============================="
-			"           统计功能           "
+			"统计功能"
 			"==============================\n"
 			"1.统计并显示每个班论文成绩的平均成绩\n"
 			"2.统计并显示所有论文成绩不合格的学生，并最后显示统计的总人数\n"
@@ -867,22 +867,137 @@ void showall() {
 }
 void showclass() {
 	system("cls");
-	printf("功能待开发\n");
+	if (!head) {
+		printf("暂无数据\n"); 
+		system("pause"); 
+		return;
+	}
+	int c;
+	printf("请输入班级：");
+	scanf("%d", &c);
+	student* p = head;
+	int f = 0;
+	system("cls");
+	printf("班级 %d 学生列表：\n", c);
+	printf("学号\t姓名\t性别\t专业\n");
+	while (p) {
+		if (p->cls == c) {
+			printf("%d\t%s\t%s\t%s\n",p->id, p->name, p->gender ? "女" : "男", p->major);
+			f = 1;
+		}
+		p = p->next;
+	}
+	if (!f) {
+		printf("无学生\n");
+	}
 	system("pause");
 }
 void showone() {
 	system("cls");
-	printf("功能待开发\n");
+	if (!head) {
+		printf("暂无数据\n");
+		system("pause");
+		return;
+	}
+	int op;
+	printf("1.按学号查询\n2.按姓名查询\n请选择：");
+	scanf("%d", &op);
+	if (op == 1) {
+		int id;
+		printf("学号："); 
+		scanf("%d", &id);
+		student* p = head;
+		while (p) {
+			if (p->id == id) {
+				printf("\n===== 信息 =====\n");
+				printf("学号：%d\n姓名：%s\n性别：%s\n班级：%d\n专业：%s\n课程：%d\n论文：%d\n总分：%d\n排名：%d\n",
+					p->id, p->name, p->gender ? "女" : "男", p->cls, p->major,p->course, p->paper, p->total, p->rank);
+				system("pause");
+				return;
+			}
+			p = p->next;
+		}
+	}
+	else if (op == 2) {
+		char name[20];
+		printf("姓名："); 
+		scanf("%s", name);
+		student* p = head;
+		while (p) {
+			if (!strcmp(p->name, name)) {
+				printf("\n===== 信息 =====\n");
+				printf("学号：%d\n姓名：%s\n性别：%s\n班级：%d\n专业：%s\n课程：%d\n论文：%d\n总分：%d\n排名：%d\n",
+					p->id, p->name, p->gender ? "女" : "男", p->cls, p->major,p->course, p->paper, p->total, p->rank);
+				system("pause");
+				return;
+			}
+			p = p->next;
+		}
+	}
+	printf("未找到\n");
 	system("pause");
 }
 void countaverage() {
 	system("cls");
-	printf("功能待开发\n");
+	if (!head) {
+		printf("暂无数据\n");
+		system("pause");
+		return;
+	}
+	int cls[1000], cn = 0;
+	student* p = head;
+	while (p) {
+		int f = 0;
+		for (int i = 0; i < cn; i++) {
+			if (cls[i] == p->cls) {
+				f = 1; 
+				break;
+			}
+		}
+		if (!f) {
+			cls[cn++] = p->cls;
+		}
+		p = p->next;
+	}
+	printf("班级\t论文平均分\n");
+	for (int i = 0; i < cn; i++) {
+		int sum = 0, num = 0;
+		p = head;
+		while (p) {
+			if (p->cls == cls[i] && p->paper >= 0) {
+				sum += p->paper;
+				num++;
+			}
+			p = p->next;
+		}
+		if (num) {
+			printf("%d\t%.2f\n", cls[i], (double)sum / num);
+		}
+		else {
+			printf("%d\t无成绩\n", cls[i]);
+		}
+	}
 	system("pause");
 }
 void countunqualified() {
 	system("cls");
-	printf("功能待开发\n");
+	if (!head) {
+		printf("暂无数据\n");
+		system("pause");
+		return;
+	}
+	int total = 0;
+	student* p = head;
+	printf("论文不合格（<60）学生：\n");
+	printf("学号\t姓名\t班级\t论文成绩\n");
+	while (p) {
+		if (p->paper >= 0 && p->paper < 60) {
+			printf("%d\t%s\t%d\t%d\n", p->id, p->name, p->cls, p->paper);
+			total++;
+		}
+		p = p->next;
+	}
+	printf("总计不合格人数：%d\n", total);
 	system("pause");
 }
 int main() {
